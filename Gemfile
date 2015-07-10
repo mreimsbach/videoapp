@@ -42,6 +42,9 @@ gem "twitter-bootstrap-rails"
 #database
 gem "mongoid", "~> 4.0.0"
 
+#this gem provides a simple and extremely flexible way to upload files from Ruby applications
+gem 'carrierwave'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
