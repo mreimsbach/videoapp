@@ -56,6 +56,7 @@ group :development, :test do
   gem 'spring'
   group :development, :test do
     gem 'rspec-rails', '~> 3.0'
+    gem 'mongoid-rspec', '~> 2.1.0'
   end
 
   gem "letter_opener"
