@@ -56,6 +56,8 @@ group :development, :test do
   gem 'spring'
   #testing-framework
   gem 'rspec-rails', '~> 3.0'
+
+  gem "letter_opener"
 end
 
 group :test do
