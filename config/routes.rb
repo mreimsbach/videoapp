@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'user#index'
+   root 'static_pages#home'
+   resources :users_admin, :controller => 'users', only: [:edit, :index, :show, :destroy, :update]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
