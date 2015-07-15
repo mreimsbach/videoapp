@@ -25,6 +25,19 @@ class User
   field :current_sign_in_ip, type: String
   field :last_sign_in_ip,    type: String
 
+  embeds_one :role
+
+  def make_admin
+    self.role = Role.admin
+  end
+
+  def revoke_admin
+    self.role.delete(Role.admin)
+  end
+
+  def admin?
+    role?(:admin)
+  end
 
   ## Confirmable
   # field :confirmation_token,   type: String
