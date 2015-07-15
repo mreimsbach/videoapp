@@ -30,7 +30,16 @@ RSpec.configure do |config|
     #     # => "be bigger than 2"
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
   end
-
+  #factory girl
+  config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    begin
+      DatabaseCleaner.start
+      FactoryGirl.lint
+    ensure
+      DatabaseCleaner.clean
+    end
+  end
   # rspec-mocks config goes here. You can use an alternate test double
   # library (such as bogus or mocha) by changing the `mock_with` option here.
   config.mock_with :rspec do |mocks|
