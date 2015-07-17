@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  before_save: :adminize
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -27,15 +28,6 @@ class User
 
   field :admin, type: Boolean, default: false
 
-  def make_admin
-    self.admin = true
-  end
-
-  def revoke_admin
-    self.admin = false
-  end
-
-
   ## Confirmable
   # field :confirmation_token,   type: String
   # field :confirmed_at,         type: Time
@@ -46,4 +38,10 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+  private
+    def adminize
+      if (self.email == "mreimsbach@avarteq.de" || self.email == "sschmidt@avarteq.de")
+        self.admin = true
+    end
+
 end
