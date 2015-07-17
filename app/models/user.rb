@@ -1,6 +1,6 @@
 class User
   include Mongoid::Document
-  before_save: :adminize
+  before_save :adminize
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -42,6 +42,7 @@ class User
     def adminize
       if (self.email == "mreimsbach@avarteq.de" || self.email == "sschmidt@avarteq.de")
         self.admin = true
+      end
     end
 
 end
