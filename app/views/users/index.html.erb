@@ -7,8 +7,7 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:first_name) %></th>
-      <th><%= model_class.human_attribute_name(:last_name) %></th>
+      <th><%= model_class.human_attribute_name(:username) %></th>
       <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
       <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
       <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
@@ -22,8 +21,7 @@
       <tr>
         <td><%= link_to user.id, users_admin_path(user) %></td>
         <td><%= user.email %></td>
-        <td><%= user.first_name %></td>
-        <td><%= user.last_name %></td>
+        <td><%= user.username %></td>
         <td><%= user.current_sign_in_at %></td>
         <td><%= user.last_sign_in_at %></td>
         <td><%= user.current_sign_in_ip %></td>
