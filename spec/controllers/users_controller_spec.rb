@@ -57,6 +57,20 @@ RSpec.describe UsersController, type: :controller do
     get :show, id: user
     expect(response).to render_template(:show)
   end
+
+  it "deletes other users as admin" do
+    sign_in create(:user, admin: true)
+    user = create(:user)
+    delete :destroy, id: user
+    expect(response).to redirect_to(users_admin_index_path)
+  end
+
+  it "doesn't delete other users as non-admin" do
+    user = create(:user)
+    sign_in create(:user)
+    delete :destroy, id: user
+    expect(response).to redirect_to(root_path)
+  end
   
 
 end
