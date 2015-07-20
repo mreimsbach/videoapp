@@ -1,6 +1,7 @@
 class User
   include Mongoid::Document
   before_save :adminize
+  validates :username, presence: true, length: { maximum: 50 }
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -8,8 +9,8 @@ class User
 
   ## Database authenticatable
   field :email,              type: String, default: ""
-  field :first_name,          type: String, default: ""
-  field :last_name,           type: String, default: ""
+  field :username,          type: String, default: ""
+#  field :last_name,           type: String, default: ""
   field :encrypted_password, type: String, default: ""
 
   ## Recoverable
@@ -38,6 +39,9 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+
+
   private
     def adminize
       if (self.email == "mreimsbach@avarteq.de" || self.email == "sschmidt@avarteq.de")
