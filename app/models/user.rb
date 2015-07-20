@@ -2,6 +2,7 @@ class User
   include Mongoid::Document
   before_save :adminize
   validates :username, presence: true, length: { maximum: 50 }
+  validates :email, uniqueness: true
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
