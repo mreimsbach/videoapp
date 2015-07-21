@@ -1,5 +1,5 @@
 class Channel
   include Mongoid::Document
   field :name, type: String
-  has_one :user
+  field :description, type: String
 end
