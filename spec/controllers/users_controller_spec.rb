@@ -63,6 +63,7 @@ RSpec.describe UsersController, type: :controller do
     user = create(:user)
     delete :destroy, id: user
     expect(response).to redirect_to(users_admin_index_path)
+    expect(User.where(id: user.id)).not_to exist
   end
 
   it "doesn't delete other users as non-admin" do
@@ -70,7 +71,16 @@ RSpec.describe UsersController, type: :controller do
     sign_in create(:user)
     delete :destroy, id: user
     expect(response).to redirect_to(root_path)
+    expect(User.where(id: user.id)).to exist
   end
-  
+
+  # it "updates an item with valid params" do
+  #   user = create(:user)
+  #   sign_in create(:user)
+  #   post :update, id: user.id, user: {username: "hallo"}
+  #   user.reload
+  #   expect(user.username).to eq("hallo")
+  # end
+
 
 end
