@@ -28,4 +28,10 @@ RSpec.describe User, type: :model do
     expect(user).to_not be_valid
   end
 
+  it "creates channel after creating new user" do
+    user = create(:user)
+    expect(Channel.where(name: user.username)).to exist
+  end
+
+
 end

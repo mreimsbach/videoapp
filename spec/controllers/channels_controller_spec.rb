@@ -52,12 +52,6 @@ RSpec.describe ChannelsController, type: :controller do
     end
   end
 
-  describe "GET #new" do
-    it "assigns a new channel as @channel" do
-      get :new, {}, valid_session
-      expect(assigns(:channel)).to be_a_new(Channel)
-    end
-  end
 
   describe "GET #edit" do
     it "assigns the requested channel as @channel" do
@@ -67,38 +61,38 @@ RSpec.describe ChannelsController, type: :controller do
     end
   end
 
-  describe "POST #create" do
-    context "with valid params" do
-      it "creates a new Channel" do
-        expect {
-          post :create, {:channel => valid_attributes}, valid_session
-        }.to change(Channel, :count).by(1)
-      end
+  # describe "POST #create" do
+  #   context "with valid params" do
+  #     it "creates a new Channel" do
+  #       expect {
+  #         post :create, {:channel => valid_attributes}, valid_session
+  #       }.to change(Channel, :count).by(1)
+  #     end
+  #
+  #     it "assigns a newly created channel as @channel" do
+  #       post :create, {:channel => valid_attributes}, valid_session
+  #       expect(assigns(:channel)).to be_a(Channel)
+  #       expect(assigns(:channel)).to be_persisted
+  #     end
+  #
+  #     it "redirects to the created channel" do
+  #       post :create, {:channel => valid_attributes}, valid_session
+  #       expect(response).to redirect_to(Channel.last)
+  #     end
+  #   end
 
-      it "assigns a newly created channel as @channel" do
-        post :create, {:channel => valid_attributes}, valid_session
-        expect(assigns(:channel)).to be_a(Channel)
-        expect(assigns(:channel)).to be_persisted
-      end
-
-      it "redirects to the created channel" do
-        post :create, {:channel => valid_attributes}, valid_session
-        expect(response).to redirect_to(Channel.last)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns a newly created but unsaved channel as @channel" do
-        post :create, {:channel => invalid_attributes}, valid_session
-        expect(assigns(:channel)).to be_a_new(Channel)
-      end
-
-      it "re-renders the 'new' template" do
-        post :create, {:channel => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
-      end
-    end
-  end
+    # context "with invalid params" do
+    #   it "assigns a newly created but unsaved channel as @channel" do
+    #     post :create, {:channel => invalid_attributes}, valid_session
+    #     expect(assigns(:channel)).to be_a_new(Channel)
+    #   end
+    #
+    #   it "re-renders the 'new' template" do
+    #     post :create, {:channel => invalid_attributes}, valid_session
+    #     expect(response).to render_template("new")
+    #   end
+    # end
+#  end
 
   describe "PUT #update" do
     context "with valid params" do
@@ -141,19 +135,19 @@ RSpec.describe ChannelsController, type: :controller do
     end
   end
 
-  describe "DELETE #destroy" do
-    it "destroys the requested channel" do
-      channel = Channel.create! valid_attributes
-      expect {
-        delete :destroy, {:id => channel.to_param}, valid_session
-      }.to change(Channel, :count).by(-1)
-    end
-
-    it "redirects to the channels list" do
-      channel = Channel.create! valid_attributes
-      delete :destroy, {:id => channel.to_param}, valid_session
-      expect(response).to redirect_to(channels_url)
-    end
-  end
+  # describe "DELETE #destroy" do
+  #   it "destroys the requested channel" do
+  #     channel = Channel.create! valid_attributes
+  #     expect {
+  #       delete :destroy, {:id => channel.to_param}, valid_session
+  #     }.to change(Channel, :count).by(-1)
+  #   end
+  #
+  #   it "redirects to the channels list" do
+  #     channel = Channel.create! valid_attributes
+  #     delete :destroy, {:id => channel.to_param}, valid_session
+  #     expect(response).to redirect_to(channels_url)
+  #   end
+  # end
 
 end

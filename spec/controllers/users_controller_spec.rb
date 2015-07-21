@@ -74,10 +74,7 @@ RSpec.describe UsersController, type: :controller do
     expect(User.where(id: user.id)).to exist
   end
 
-  it "creates channel after creating new user" do
-    user = create(:user)
-    expect(Channel.where(name: user.username)).to exist
-  end
+  
   # it "updates an item with valid params" do
   #   user = create(:user)
   #   sign_in create(:user)

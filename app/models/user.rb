@@ -51,4 +51,10 @@ class User
       end
     end
 
+    def init_channel
+      if (!self.channel.exist?)
+        self.channel.build(name: :username)
+      end
+    end
+
 end
