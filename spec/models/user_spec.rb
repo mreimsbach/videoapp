@@ -13,17 +13,17 @@ RSpec.describe User, type: :model do
     expect(user).to be_admin
   end
 
-  it "should not make random user admin" do
+  it "does not make a random user an admin" do
     user = create(:user)
     expect(user).not_to be_admin
   end
 
-  it "should not have an empty username" do
+  it "does not allow an empty username" do
     user = build(:user, username: "")
     expect(user).to_not be_valid
   end
 
-  it "should not allow oversized usernames" do
+  it "does not allow oversized usernames" do
     user = build(:user, username: 'a'*51)
     expect(user).to_not be_valid
   end
