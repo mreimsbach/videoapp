@@ -1,7 +1,8 @@
 class User
   include Mongoid::Document
   has_one :channel
-  before_save :adminize
+  before_create :adminize
+  after_create :init_channel
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
   # Include default devise modules. Others available are:
@@ -52,9 +53,9 @@ class User
     end
 
     def init_channel
-      if (!self.channel.exist?)
-        self.channel.build(name: :username)
-      end
+      channel = Channel.new
+      channel.user = self
+      channel.save!
     end
 
 end

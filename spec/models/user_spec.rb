@@ -30,7 +30,9 @@ RSpec.describe User, type: :model do
 
   it "creates channel after creating new user" do
     user = create(:user)
-    expect(Channel.where(name: user.username)).to exist
+    user.reload
+    expect(user.channel).to be_present
+  #  expect(Channel.find_by(user: user.id)).to exist
   end
 
 

@@ -3,5 +3,5 @@ class Channel
   field :name, type: String
   field :description, type: String, default: ""
 
-  has_one :user
+  belongs_to :user
 end
