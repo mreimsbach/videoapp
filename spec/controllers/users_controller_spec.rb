@@ -86,14 +86,20 @@ RSpec.describe UsersController, type: :controller do
 
   describe "PUT #update" do
 
-      it "updates the requested channel" do
-      #  user = User.create! valid_attributes
+      it "updates other users as admin" do
         sign_in create(:user, admin: true)
-        @user = create(:user)
+        user = create(:user)
         new_username = "hallo"
-        put :update, {:id => @user, :user => {username: new_username}}
-        @user.reload
-        expect(@user.username).to eq(new_username)
+        put :update, {:id => user, :user => {username: new_username}}
+        user.reload
+        expect(user.username).to eq(new_username)
+      end
+
+      it "doesn't update other users as non-admin" do
+        user = create(:user)
+        new_username = "hallo"
+        put :update, {:id => user, :user => {username: new_username}}
+        expect(response).to redirect_to(root_path)
       end
   end
 end
