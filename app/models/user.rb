@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  has_one :channel
   before_save :adminize
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
