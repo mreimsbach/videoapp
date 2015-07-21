@@ -85,15 +85,15 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update" do
-      # 
-      # it "updates the requested channel" do
-      # #  user = User.create! valid_attributes
-      #   sign_in create(:user, admin: true)
-      #   @user = create(:user)
-      #   new_username = "hallo"
-      #   put :update, {:id => @user, :user => {username: new_username}}
-      #   @user.reload
-      #   expect(@user.username).to eq(new_username)
-      # end
+
+      it "updates the requested channel" do
+      #  user = User.create! valid_attributes
+        sign_in create(:user, admin: true)
+        @user = create(:user)
+        new_username = "hallo"
+        put :update, {:id => @user, :user => {username: new_username}}
+        @user.reload
+        expect(@user.username).to eq(new_username)
+      end
   end
 end
