@@ -97,6 +97,7 @@ RSpec.describe UsersController, type: :controller do
 
       it "doesn't update other users as non-admin" do
         user = create(:user)
+        sign_in user
         new_username = "hallo"
         put :update, {:id => user, :user => {username: new_username}}
         expect(response).to redirect_to(root_path)
