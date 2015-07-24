@@ -4,7 +4,7 @@ FactoryGirl.define do
     description "MyChannelDescription"
 
     factory :channel_with_courses do
-      ignore do
+      transient do
         course_count 2
       end
       after(:build) do |channel, evaluator|
@@ -18,6 +18,9 @@ FactoryGirl.define do
   factory :course do
     name "AwesomeChannel"
     description "AwesomeChannelDescription"
+
+    association :channel, factory: :channel
+
   end
 
   factory :user do

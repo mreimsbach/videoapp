@@ -11,7 +11,4 @@ require 'rails_helper'
 #   end
 # end
 RSpec.describe CoursesHelper, type: :helper do
-  def get_course
-    course = build(:channel_with_courses).channels.first
-  end
 end
