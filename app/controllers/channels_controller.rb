@@ -1,5 +1,8 @@
 class ChannelsController < ApplicationController
   before_action :set_channel, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
+  before_action :channel_owner?, only: [:update, :edit]
+
 
   # GET /channels
   # GET /channels.json
@@ -19,6 +22,7 @@ class ChannelsController < ApplicationController
 
   # GET /channels/1/edit
   def edit
+
   end
 
   # POST /channels
@@ -70,5 +74,8 @@ class ChannelsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def channel_params
       params.require(:channel).permit(:name, :description)
+    end
+    def channel_owner?
+      redirect_to(root_url) unless current_user.channel == @channel
     end
 end

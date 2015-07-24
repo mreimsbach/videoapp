@@ -37,28 +37,43 @@ RSpec.describe ChannelsController, type: :controller do
   let(:valid_session) { {} }
 
   describe "GET #index" do
-    it "assigns all channels as @channels" do
-      channel = Channel.create! valid_attributes
-      get :index, {}, valid_session
-      expect(assigns(:channels)).to eq([channel])
+    it "lists all channel" do
+      create(:channel)
+      get :index
+      expect(response).to render_template(:index)
     end
   end
 
   describe "GET #show" do
-    it "assigns the requested channel as @channel" do
-      channel = Channel.create! valid_attributes
-      get :show, {:id => channel.to_param}, valid_session
-      expect(assigns(:channel)).to eq(channel)
+    it "shows a specific channel" do
+      channel = create(:channel)
+      get :show, id: channel
+      expect(response).to render_template(:show)
     end
   end
 
 
   describe "GET #edit" do
-    it "assigns the requested channel as @channel" do
-      channel = Channel.create! valid_attributes
-      get :edit, {:id => channel.to_param}, valid_session
-      expect(assigns(:channel)).to eq(channel)
+    it "shows edit to the belonging user" do
+      user = create(:user)
+      sign_in user
+      get :edit, id: user.channel
+      expect(response).to render_template(:edit)
     end
+
+    it "shouldn't show edit to other user" do
+      user = create(:user)
+      sign_in create(:user)
+      get :edit, id: user.channel
+      expect(response).to redirect_to(root_path)
+    end
+
+    it "shouldn't show edit to outlogged user" do
+      user = create(:user)
+      get :edit, id: user.channel
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
   end
 
   # describe "POST #create" do
@@ -95,44 +110,20 @@ RSpec.describe ChannelsController, type: :controller do
 #  end
 
   describe "PUT #update" do
-    context "with valid params" do
-      let(:new_attributes) {
-        skip("Add a hash of attributes valid for your model")
-      }
-
-      it "updates the requested channel" do
-        channel = Channel.create! valid_attributes
-        put :update, {:id => channel.to_param, :channel => new_attributes}, valid_session
-        channel.reload
-        skip("Add assertions for updated state")
+      it "updates the requested channel as logged in user" do
+        user = create(:user)
+        sign_in user
+        put :update, {:id => user.channel, :channel => {name: "new Name", description: "new detailed description" }}
+        user.channel.reload
+        expect(user.channel.name).to eq("new Name")
+        expect(user.channel.description).to eq("new detailed description")
       end
-
-      it "assigns the requested channel as @channel" do
-        channel = Channel.create! valid_attributes
-        put :update, {:id => channel.to_param, :channel => valid_attributes}, valid_session
-        expect(assigns(:channel)).to eq(channel)
+      it "shouldn't updates the requested channel as other user" do
+        user = create(:user)
+        sign_in create(:user)
+        put :update, {:id => user.channel, :channel => {name: "new Name", description: "new detailed description" }}
+        expect(response).to redirect_to(root_path)
       end
-
-      it "redirects to the channel" do
-        channel = Channel.create! valid_attributes
-        put :update, {:id => channel.to_param, :channel => valid_attributes}, valid_session
-        expect(response).to redirect_to(channel)
-      end
-    end
-
-    context "with invalid params" do
-      it "assigns the channel as @channel" do
-        channel = Channel.create! valid_attributes
-        put :update, {:id => channel.to_param, :channel => invalid_attributes}, valid_session
-        expect(assigns(:channel)).to eq(channel)
-      end
-
-      it "re-renders the 'edit' template" do
-        channel = Channel.create! valid_attributes
-        put :update, {:id => channel.to_param, :channel => invalid_attributes}, valid_session
-        expect(response).to render_template("edit")
-      end
-    end
   end
 
   # describe "DELETE #destroy" do
