@@ -1,4 +1,5 @@
 class CoursesController < ApplicationController
+  before_action :load_channel
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
@@ -70,5 +71,8 @@ class CoursesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
       params.require(:course).permit(:name, :description)
+    end
+    def load_channel
+      @channel = Channel.find(params[:channel_id])
     end
 end
