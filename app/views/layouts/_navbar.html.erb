@@ -5,6 +5,7 @@
     <% if current_user %>
       <%= menu_item "My Channel", channel_path(current_user.channel) %>
     <%end%>
+    <%= menu_item "All Courses", courses_path %>
 
   <% end %>
   <% if current_user %>
