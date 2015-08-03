@@ -1,7 +1,8 @@
-Rails.application.routes.draw do  
+Rails.application.routes.draw do
   resources :channels, except: [:new, :destroy] do
     resources :courses
   end
+  get 'courses' => 'courses#index_all'
   devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

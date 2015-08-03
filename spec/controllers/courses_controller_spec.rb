@@ -36,124 +36,94 @@ RSpec.describe CoursesController, type: :controller do
   # CoursesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  # describe "GET #index" do
-  #   it "lists all courses of a channel" do
-  #     course = create(:course)
-  #     get :index, {:channel_id => course.channel}
-  #     expect(response).to render_template(:index)
-  #   end
-  # end
-  #
-  # describe "GET #show" do
-  #   it "shows a specific course" do
-  #     course = create(:course)
-  #     get :show, {:id => course, :channel_id => course.channel}
-  #     expect(response).to render_template(:show)
-  #   end
-  # end
+  describe "GET #index" do
+    it "lists all courses of a channel" do
+      course = create(:course)
+      get :index, {:channel_id => course.channel}
+      expect(response).to render_template(:index)
+    end
+  end
 
-  # describe "GET #new" do
-  #   it "assigns a new course as @course" do
-  #     get :new, {}, valid_session
-  #     expect(assigns(:course)).to be_a_new(Course)
-  #   end
-  # end
-  #
-  # describe "GET #edit" do
-  #   it "assigns the requested course as @course" do
-  #     course = Course.create! valid_attributes
-  #     get :edit, {:id => course.to_param}, valid_session
-  #     expect(assigns(:course)).to eq(course)
-  #   end
-  # end
-  #
-  # describe "POST #create" do
-  #   context "with valid params" do
-  #     it "creates a new Course" do
-  #       expect {
-  #         post :create, {:course => valid_attributes}, valid_session
-  #       }.to change(Course, :count).by(1)
-  #     end
-  #
-  #     it "assigns a newly created course as @course" do
-  #       post :create, {:course => valid_attributes}, valid_session
-  #       expect(assigns(:course)).to be_a(Course)
-  #       expect(assigns(:course)).to be_persisted
-  #     end
-  #
-  #     it "redirects to the created course" do
-  #       post :create, {:course => valid_attributes}, valid_session
-  #       expect(response).to redirect_to(Course.last)
-  #     end
-  #   end
-  #
-  #   context "with invalid params" do
-  #     it "assigns a newly created but unsaved course as @course" do
-  #       post :create, {:course => invalid_attributes}, valid_session
-  #       expect(assigns(:course)).to be_a_new(Course)
-  #     end
-  #
-  #     it "re-renders the 'new' template" do
-  #       post :create, {:course => invalid_attributes}, valid_session
-  #       expect(response).to render_template("new")
-  #     end
-  #   end
-  # end
-  #
-  # describe "PUT #update" do
-  #   context "with valid params" do
-  #     let(:new_attributes) {
-  #       skip("Add a hash of attributes valid for your model")
-  #     }
-  #
-  #     it "updates the requested course" do
-  #       course = Course.create! valid_attributes
-  #       put :update, {:id => course.to_param, :course => new_attributes}, valid_session
-  #       course.reload
-  #       skip("Add assertions for updated state")
-  #     end
-  #
-  #     it "assigns the requested course as @course" do
-  #       course = Course.create! valid_attributes
-  #       put :update, {:id => course.to_param, :course => valid_attributes}, valid_session
-  #       expect(assigns(:course)).to eq(course)
-  #     end
-  #
-  #     it "redirects to the course" do
-  #       course = Course.create! valid_attributes
-  #       put :update, {:id => course.to_param, :course => valid_attributes}, valid_session
-  #       expect(response).to redirect_to(course)
-  #     end
-  #   end
-  #
-  #   context "with invalid params" do
-  #     it "assigns the course as @course" do
-  #       course = Course.create! valid_attributes
-  #       put :update, {:id => course.to_param, :course => invalid_attributes}, valid_session
-  #       expect(assigns(:course)).to eq(course)
-  #     end
-  #
-  #     it "re-renders the 'edit' template" do
-  #       course = Course.create! valid_attributes
-  #       put :update, {:id => course.to_param, :course => invalid_attributes}, valid_session
-  #       expect(response).to render_template("edit")
-  #     end
-  #   end
-  # end
-  #
-  # describe "DELETE #destroy" do
-  #   it "destroys the requested course" do
-  #     course = Course.create! valid_attributes
-  #     expect {
-  #       delete :destroy, {:id => course.to_param}, valid_session
-  #     }.to change(Course, :count).by(-1)
-  #   end
-  #
-  #   it "redirects to the courses list" do
-  #     course = Course.create! valid_attributes
-  #     delete :destroy, {:id => course.to_param}, valid_session
-  #     expect(response).to redirect_to(courses_url)
-  #   end
-  # end
+  describe "GET #show" do
+    it "shows a specific course" do
+      course = create(:course)
+      get :show, {:id => course, :channel_id => course.channel}
+      expect(response).to render_template(:show)
+    end
+  end
+
+  describe "GET #new" do
+    it "gets a new course" do
+      channel = create(:channel)
+      get :new, {:channel_id => channel}
+      expect(response).to render_template(:new)
+    end
+  end
+
+  describe "GET #edit" do
+    it "assigns the requested course as @course" do
+      course = create(:course)
+      get :edit, {:id => course, :channel_id => course.channel}
+      expect(response).to render_template(:edit)
+    end
+  end
+
+  describe "POST #create" do
+    context "with valid params" do
+      it "creates a new Course and redirects to the course" do
+        channel = create(:channel)
+        course_attributes = FactoryGirl.attributes_for(:course)
+        post :create, {:course => course_attributes, :channel_id => channel }
+        channel.reload
+        expect(response).to redirect_to channel_course_path(channel_id: channel, id: channel.courses.first)
+      end
+    end
+    context "with invalid params" do
+      it "creates a new Course and redirects to the course" do
+        channel = create(:channel)
+        course_attributes = FactoryGirl.attributes_for(:course, name: nil)
+        post :create, {:course => course_attributes, :channel_id => channel }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe "PUT #update" do
+    context "with valid params" do
+      it "updates the requested course" do
+        course = create(:course)
+        put :update, {channel_id: course.channel, :id => course.id,
+           :course => {name: "very awesome course",
+           description: "very very awesome description"}}
+        course.reload
+        expect(course.name).to eq("very awesome course")
+      end
+
+      it "redirects to the course" do
+        course = Course.create! valid_attributes
+        put :update, {channel_id: course.channel, :id => course.id,
+          :course => {name: "very awesome course",
+          description: "very very awesome description"}}
+        expect(response).to render_template(:show)
+      end
+    end
+
+    context "with invalid params" do
+      it "re-renders the 'edit' template" do
+        course = create(:course)
+        put :update, {channel_id: course.channel, :id => course.id,
+          :course => {name: nil, description: "very very awesome description"}}
+        expect(response).to render_template("edit")
+      end
+    end
+  end
+
+  describe "DELETE #destroy" do
+    it "destroys the requested course" do
+      course = create(:course)
+      delete :destroy, {:id => course, :channel_id => course.channel}
+      expect(response).to redirect_to channel_courses_path
+    end
+   end
 
 end
