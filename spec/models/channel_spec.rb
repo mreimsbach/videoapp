@@ -19,7 +19,16 @@ RSpec.describe Channel, type: :model do
   it "does not allow oversized descriptions" do
     channel = build(:channel, description: 'b'*1001)
     expect(channel).to_not be_valid
+  end
 
+  it "does allow an non-overlong name" do
+    course = build(:channel, name: 'a'*50)
+    expect(course).to be_valid
+  end
+
+  it "does allow an non-overlong description" do
+    course = build(:channel, description: 'a'*1000)
+    expect(course).to be_valid
   end
 
 end

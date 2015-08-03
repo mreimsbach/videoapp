@@ -27,6 +27,10 @@ RSpec.describe User, type: :model do
     user = build(:user, username: 'a'*51)
     expect(user).to_not be_valid
   end
+  it "does allow a non-oversized username" do
+    user = build(:user, username: 'a'*50)
+    expect(user).to be_valid
+  end
 
   it "creates channel after creating new user" do
     user = create(:user)
