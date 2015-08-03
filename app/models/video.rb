@@ -1,6 +1,8 @@
 class Video
   include Mongoid::Document
   mount_uploader :file, VideoUploader
+
+  belongs_to :channel
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 1000 }
 

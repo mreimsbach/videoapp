@@ -89,6 +89,7 @@ RSpec.describe CoursesController, type: :controller do
   end
 
   describe "PUT #update" do
+    render_views
     context "with valid params" do
       it "updates the requested course" do
         course = create(:course)
