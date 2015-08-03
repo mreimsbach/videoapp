@@ -35,4 +35,10 @@ FactoryGirl.define do
   sequence :email do |n|
     "person.#{n}@avarteq.de"
   end
+
+  factory :video do
+    name "Awesome Video"
+    description "Too many cooks"
+    file "/foo"
+  end
 end

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :videos
   resources :channels, except: [:new, :destroy] do
     resources :courses
   end

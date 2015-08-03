@@ -24,11 +24,11 @@ RSpec.describe CoursesController, type: :controller do
   # Course. As you add validations to Course, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
+#    skip("Add a hash of attributes valid for your model")
   }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+#    skip("Add a hash of attributes invalid for your model")
   }
 
   # This should return the minimal set of values that should be in the session
@@ -100,7 +100,7 @@ RSpec.describe CoursesController, type: :controller do
       end
 
       it "redirects to the course" do
-        course = Course.create! valid_attributes
+        course = create(:course)
         put :update, {channel_id: course.channel, :id => course.id,
           :course => {name: "very awesome course",
           description: "very very awesome description"}}
