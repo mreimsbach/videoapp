@@ -10,9 +10,14 @@
   <dd><%= @channel.description %></dd>
 </dl>
 
+<% if @channel.courses.any? %>
+  <%= render @courses %>
+<% end %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               channels_path, :class => 'btn btn-default'  %>
 <% if channel_of_current_user?(@channel) %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_channel_path(@channel), :class => 'btn btn-default' %>
+    <%= link_to 'Add Course', new_channel_course_path(@channel), :class => 'btn btn-default' %>
 <% end %>

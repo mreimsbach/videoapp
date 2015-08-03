@@ -22,4 +22,14 @@ RSpec.describe Course, type: :model do
     expect(course).to_not be_valid
   end
 
+  it "does allow an non-overlong name" do
+    course = build(:course, name: 'a'*50)
+    expect(course).to be_valid
+  end
+
+  it "does allow an non-overlong description" do
+    course = build(:course, description: 'a'*1000)
+    expect(course).to be_valid
+  end
+
 end

@@ -4,6 +4,7 @@ RSpec.describe CoursesController, type: :routing do
   describe "routing" do
 
     it "routes to #index" do
+      channel = create(:channel)
       expect(:get => "channels/1/courses").to route_to("courses#index", :channel_id => "1")
     end
 

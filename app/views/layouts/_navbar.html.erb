@@ -2,6 +2,10 @@
   <%= menu_group do %>
     <%= menu_item "Home", root_path %>
     <%= menu_item "All Channels", channels_path %>
+    <% if current_user %>
+      <%= menu_item "My Channel", channel_path(current_user.channel) %>
+    <%end%>
+    <%= menu_item "All Courses", courses_path %>
 
   <% end %>
   <% if current_user %>

@@ -1,11 +1,22 @@
 class CoursesController < ApplicationController
-  before_action :load_channel
+  before_action :load_channel, except: [:index_all]
   before_action :set_course, only: [:show, :edit, :update, :destroy]
 
   # GET /courses
   # GET /courses.json
   def index
     @courses = @channel.courses
+  end
+
+  def index_all
+    @channels = Channel.all
+    @courses = []
+    @channels.each do |channel|
+      channel.courses.each do |course|
+        @courses << course
+      end
+    end
+    render :index
   end
 
   # GET /courses/1
