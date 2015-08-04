@@ -10,8 +10,9 @@
   <dd><%= @course.description %></dd>
 </dl>
 
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              channel_courses_path(@course.channel, @course), :class => 'btn btn-default'  %>
+              :back, :class => 'btn btn-default'  %>
 <%= link_to t('.edit', :default => t("helpers.links.edit")),
               edit_channel_course_path(@course.channel, @course), :class => 'btn btn-default' %>
 <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
