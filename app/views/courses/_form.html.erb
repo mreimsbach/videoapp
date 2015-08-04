@@ -32,7 +32,9 @@
 
 
   <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to "Add Video", new_video_path, :class => 'btn btn-default' %>
+  <% if @course %>
+    <%= link_to "Add Video", new_video_path(@course), :class => 'btn btn-default' %>
+  <% end %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             channel_courses_path(@course.channel, @course), :class => 'btn btn-default' %>
 

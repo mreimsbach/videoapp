@@ -14,7 +14,8 @@ class VideosController < ApplicationController
 
   # GET /videos/new
   def new
-    @video = Video.new
+    @course = params[:course]
+    @video = @course.videos.build
   end
 
   # GET /videos/1/edit
@@ -69,6 +70,6 @@ class VideosController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
-      params.require(:video).permit(:name, :description, :file)
+      params.require(:video).permit(:name, :description, :file, :course)
     end
 end
