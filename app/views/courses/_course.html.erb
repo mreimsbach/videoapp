@@ -10,5 +10,8 @@
   </div>
   <div class="panel-body">
     <%= course.description %>
+    <% if course.videos.any? %>
+      <%= render course.videos %>
+    <% end %>
   </div>
 </div>
