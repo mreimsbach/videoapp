@@ -69,3 +69,4 @@ config/secrets.yml
 .rvmrc
 
 public/assets
+public/uploads
