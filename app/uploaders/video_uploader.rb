@@ -3,7 +3,7 @@
 class VideoUploader < CarrierWave::Uploader::Base
 
   def extension_white_list
-    %w(mp4)
+    %w(mp4 mov)
   end
   # Include RMagick or MiniMagick support:
   # include CarrierWave::RMagick

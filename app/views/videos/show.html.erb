@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @video.description %></dd>
   <dt><strong><%= model_class.human_attribute_name(:file) %>:</strong></dt>
-  <dd><%= @video.file %></dd>
+  <%= video_tag @video.file , :controls => true%>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
