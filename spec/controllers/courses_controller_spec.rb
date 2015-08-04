@@ -89,7 +89,7 @@ RSpec.describe CoursesController, type: :controller do
   end
 
   describe "PUT #update" do
-    render_views
+  #  render_views
     context "with valid params" do
       it "updates the requested course" do
         course = create(:course)
@@ -105,7 +105,7 @@ RSpec.describe CoursesController, type: :controller do
         put :update, {channel_id: course.channel, :id => course.id,
           :course => {name: "very awesome course",
           description: "very very awesome description"}}
-        expect(response).to render_template(:show)
+        expect(response).to redirect_to([course.channel, course])
       end
     end
 
