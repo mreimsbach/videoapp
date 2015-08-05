@@ -10,8 +10,10 @@
   </div>
   <div class="panel-body">
     <%= course.description %>
-    <% if course.videos.any? %>
-      <%= render course.videos %>
+    <br>
+    <% course.videos.each do |video| %>
+      <%= link_to image_tag(video.file.url :thumb), video_path(video) %>
+      <h5><%= video.name %></h5>
     <% end %>
   </div>
 </div>

@@ -9,12 +9,8 @@
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @course.description %></dd>
 </dl>
-
-<div id="videos_part">
-  <% @videos.each do |video| %>
-   <%= image_tag video.file.url :thumb %>
-  <% end %>
-</div>
+<h2>Videos</h2>
+<%= render @videos %>
 
 
 

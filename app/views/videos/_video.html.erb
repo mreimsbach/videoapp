@@ -1,8 +1,7 @@
 <%- model_class = Video -%>
 <dl class="dl-horizontal">
-  <dd><%= image_tag video.file.url :thumb %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= video.name %></dd>
+  <dd><%= link_to video.name, video_path(video) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= video.description %></dd>
 </dl>
