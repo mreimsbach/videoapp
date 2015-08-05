@@ -45,6 +45,7 @@ gem "mongoid", "~> 4.0.0"
 #this gem provides a simple and extremely flexible way to upload files from Ruby applications
 gem 'carrierwave'
 gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'carrierwave-video-thumbnailer'
 
 gem 'devise-bootstrap-views'
 group :development, :test do
