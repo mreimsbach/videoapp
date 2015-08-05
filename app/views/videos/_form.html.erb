@@ -38,8 +38,9 @@
   </div>
 
 
-  <%= hidden_field_tag(:course_id, @course.id) %>
-  <%= f.button nil, :class => 'btn btn-primary',name: "channel_id",value: @channel.id %>
+  <%= hidden_field_tag(:course_id, @course.id) if @course %>
+  <%= hidden_field_tag(:channel_id, @channel.id) if @channel %>
+  <%= f.button nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             videos_path, :class => 'btn btn-default' %>
 
