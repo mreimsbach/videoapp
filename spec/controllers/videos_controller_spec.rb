@@ -54,7 +54,11 @@ RSpec.describe VideosController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new video as @video" do
-      get :new, {}, valid_session
+      channel = create(:channel)
+      course = create(:course)
+      channel.courses << course
+      channel.save
+      get :new, {:channel_id => channel, :course_id => course}, valid_session
       expect(assigns(:video)).to be_a_new(Video)
     end
   end
