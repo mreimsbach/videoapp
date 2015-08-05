@@ -10,6 +10,14 @@
   <dd><%= @course.description %></dd>
 </dl>
 
+<div id="videos_part">
+  <% @videos.each do |video| %>
+   <%= image_tag video.file.url :thumb %>
+  <% end %>
+</div>
+
+
+
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               :back, :class => 'btn btn-default'  %>

@@ -3,12 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
-<dl class="dl-horizontal">
-  <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
-  <dd><%= @video.name %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
-  <dd><%= @video.description %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:file) %>:</strong></dt>
+<%= render @video %>
   <video width="640" height="360" src="<%=@video.file%>" type="video/mov"
 	id="player1" %>"
 	controls="controls" preload="none"></video>

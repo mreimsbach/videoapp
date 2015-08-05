@@ -26,7 +26,9 @@ class VideosController < ApplicationController
   # POST /videos
   # POST /videos.json
   def create
-    @video = Video.new(video_params)
+    @channel = Channel.find(params[:channel_id])
+    @course = @channel.courses.find(params[:course_id])
+    @video = @course.videos.build(video_params)
 
     respond_to do |format|
       if @video.save

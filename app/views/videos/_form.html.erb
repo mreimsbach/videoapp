@@ -38,7 +38,8 @@
   </div>
 
 
-  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= hidden_field_tag(:course_id, @course.id) %>
+  <%= f.button nil, :class => 'btn btn-primary',name: "channel_id",value: @channel.id %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
             videos_path, :class => 'btn btn-default' %>
 
