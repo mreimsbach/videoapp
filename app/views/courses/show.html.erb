@@ -24,3 +24,5 @@
               :method => 'delete',
               :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
               :class => 'btn btn-danger' %>
+
+<%= link_to "Add Video", new_video_path(channel_id: @course.channel, course_id: @course), :class => 'btn btn-default' %>
