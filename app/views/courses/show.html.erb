@@ -10,4 +10,6 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               :back, :class => 'btn btn-default'  %>
-<%= link_to "Add Video", new_video_path(channel_id: @course.channel, course_id: @course), :class => 'btn btn-default' %>
+<% if current_user %>
+  <%= link_to "Add Video", new_video_path(channel_id: @course.channel, course_id: @course), :class => 'btn btn-default' %>
+<% end %>
