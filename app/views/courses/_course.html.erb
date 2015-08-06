@@ -15,9 +15,16 @@
   <div class="panel-body">
     <%= course.description %>
     <br>
-    <% course.videos.each do |video| %>
-      <%= link_to image_tag(video.file.url :thumb), video_path(video) %>
-      <h5><%= video.name %></h5>
-    <% end %>
+    <hr>
+    <div class="DocumentList">
+        <ul class="list-inline">
+            <% course.videos.each do |video| %>
+              <li class="DocumentItem">
+                <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
+                <center><h5><%= video.name %></h5></center></span>
+              </li>
+            <% end %>
+        </ul>
+    </div>
   </div>
 </div>

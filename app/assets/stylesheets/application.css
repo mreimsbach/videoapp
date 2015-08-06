@@ -18,3 +18,14 @@
 
  /* User sign in and sign forms. */
 @import 'bootstrap/glyphicons';
+.list-inline {
+  white-space:nowrap;
+}
+
+videoplayer{
+  margin: 10px 10px;
+}
+
+#mep_0{
+  margin: 15px;
+}
