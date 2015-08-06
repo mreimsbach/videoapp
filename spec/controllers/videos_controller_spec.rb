@@ -53,15 +53,25 @@ RSpec.describe VideosController, type: :controller do
   end
 
   describe "GET #new" do
-    it "assigns a new video as @video" do
-      channel = create(:channel)
-      course = create(:course)
-      channel.courses << course
-      channel.save
-      get :new, {:channel_id => channel, :course_id => course}, valid_session
-      expect(assigns(:video)).to be_a_new(Video)
+    # before (:example) do
+    #   @user = create(:user, channel: create(:channel_with_courses))
+    #   sign_in @user
+    # end
+    # it "renders new for user" do
+    #   @user.channel.valid?
+    #   get :new, {channel_id: @user.channel, course_id: @user.channel.courses.first}
+    #   expect(response).to have_http_status(:success)
+    # end
+
+    it "shouldn't allow other users to add new videos" do
+      user = create(:user, channel: create(:channel_with_courses))
+      user2 = create(:user)
+      sign_in user2
+      get :new, {channel_id: user.channel, course_id: user.channel.courses.first}
+      expect(response).to redirect_to(root_url)
     end
   end
+
 
   describe "GET #edit" do
     it "assigns the requested video as @video" do
@@ -72,39 +82,47 @@ RSpec.describe VideosController, type: :controller do
   end
 
   describe "POST #create" do
+    before (:example) do
+      @user = create(:user, channel: create(:channel_with_courses))
+      sign_in @user
+    end
     context "with valid params" do
       it "creates a new Video" do
         expect {
-          post :create, {video: attributes_for(:video)}
+          post :create, {video: attributes_for(:video), channel_id: @user.channel, course_id: @user.channel.courses.first}
         }.to change(Video, :count).by(1)
       end
 
       it "assigns a newly created video as @video" do
-        post :create, {video: attributes_for(:video)}
+        post :create, {video: attributes_for(:video),channel_id: @user.channel, course_id: @user.channel.courses.first }
         expect(assigns(:video)).to be_a(Video)
         expect(assigns(:video)).to be_persisted
       end
 
       it "redirects to the created video" do
-        post :create, {video: attributes_for(:video)}
+        post :create, {video: attributes_for(:video), channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(response).to redirect_to(Video.last)
       end
     end
 
     context "with invalid params" do
       it "assigns a newly created but unsaved video as @video" do
-        post :create, {video: attributes_for(:video, name: " ")}
+        post :create, {video: attributes_for(:video, name: " "), channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(assigns(:video)).to be_a_new(Video)
       end
 
       it "re-renders the 'new' template" do
-        post :create, {video: attributes_for(:video, name: " ")}
+        post :create, {video: attributes_for(:video, name: " "), channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(response).to render_template("new")
       end
     end
   end
 
   describe "PUT #update" do
+    before (:example) do
+      @user = create(:user, channel: create(:channel_with_courses))
+      sign_in @user
+    end
     context "with valid params" do
       let(:new_attributes) {
         {
@@ -115,20 +133,20 @@ RSpec.describe VideosController, type: :controller do
 
       it "updates the requested video" do
         video = create(:video)
-        put :update, {:id => video.to_param, :video => new_attributes}
+        put :update, {:id => video.to_param, :video => new_attributes, channel_id: @user.channel, course_id: @user.channel.courses.first}
         video.reload
         expect(video.name).to eq(new_attributes[:name])
       end
 
       it "assigns the requested video as @video" do
         video = create(:video)
-        put :update, {:id => video.to_param, :video => valid_attributes}
+        put :update, {:id => video.to_param, :video => valid_attributes, channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(assigns(:video)).to eq(video)
       end
 
       it "redirects to the video" do
         video = create(:video)
-        put :update, {:id => video.to_param, :video => valid_attributes}
+        put :update, {:id => video.to_param, :video => valid_attributes, channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(response).to redirect_to(video)
       end
     end
@@ -149,18 +167,21 @@ RSpec.describe VideosController, type: :controller do
   end
 
   describe "DELETE #destroy" do
+    before (:example) do
+      @user = create(:user, channel: create(:channel_with_courses))
+      sign_in @user
+    end
     it "destroys the requested video" do
       video = create(:video)
       expect {
-        delete :destroy, {:id => video.to_param}
+        delete :destroy, {:id => video.to_param, channel_id: @user.channel, course_id: @user.channel.courses.first}
       }.to change(Video, :count).by(-1)
     end
 
     it "redirects to the videos list" do
       video = create(:video)
-      delete :destroy, {:id => video.to_param}
+      delete :destroy, {:id => video.to_param, channel_id: @user.channel, course_id: @user.channel.courses.first}
       expect(response).to redirect_to(videos_url)
     end
   end
-
 end

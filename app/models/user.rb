@@ -53,10 +53,12 @@ class User
     end
 
     def init_channel
-      channel = Channel.new
-      channel.user = self
-      channel.name = self.username
-      channel.save!
+      if channel == nil
+        channel = Channel.new
+        channel.user = self
+        channel.name = self.username
+        channel.save!
+      end
     end
 
 end

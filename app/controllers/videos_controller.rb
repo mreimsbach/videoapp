@@ -1,6 +1,8 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
+  before_action :new_filter, only: [:new]
+
 
   # GET /videos
   # GET /videos.json
@@ -15,8 +17,6 @@ class VideosController < ApplicationController
 
   # GET /videos/new
   def new
-    @channel = Channel.find(params[:channel_id])
-    @course = @channel.courses.find(params[:course_id])
     @video = @course.videos.build
   end
 
@@ -75,5 +75,28 @@ class VideosController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def video_params
       params.require(:video).permit(:name, :description, :file, :course_id, :channel_id)
+    end
+
+    def new_filter
+      if !(valid_new && correct_user)
+        redirect_to root_path
+      end
+    end
+
+    def valid_new
+      if (!params.has_key?(:course_id) && !params.has_key?(:channel_id))
+        false
+      end
+      begin
+      @channel = Channel.find(params[:channel_id])
+      @course = @channel.courses.find(params[:course_id])
+      true
+      rescue Mongoid::Errors::InvalidFind
+        false
+      end
+    end
+
+    def correct_user
+      current_user && current_user == @channel.user
     end
 end

@@ -65,6 +65,9 @@ group :development, :test do
 
 
   gem "letter_opener"
+
+  gem "pry"
+  gem "pry-byebug"
 end
 
 group :test do
