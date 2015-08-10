@@ -70,3 +70,4 @@ config/secrets.yml
 
 public/assets
 public/uploads
+spec/fixtures

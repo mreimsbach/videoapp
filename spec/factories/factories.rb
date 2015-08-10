@@ -39,7 +39,8 @@ FactoryGirl.define do
   factory :video do
     name "Awesome Video"
     description "Too many cooks"
-    file "/foo"
+    file  Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/test.mp4')))
     user { create(:user) }
   end
+
 end
