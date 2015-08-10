@@ -5,6 +5,7 @@ class User
   after_create :init_channel
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
+  has_many :videos
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,

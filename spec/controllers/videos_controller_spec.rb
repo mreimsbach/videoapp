@@ -89,18 +89,18 @@ RSpec.describe VideosController, type: :controller do
     context "with valid params" do
       it "creates a new Video" do
         expect {
-          post :create, {video: attributes_for(:video), channel_id: @user.channel, course_id: @user.channel.courses.first}
+          post :create, {video: attributes_for(:video, user_id: @user), channel_id: @user.channel, course_id: @user.channel.courses.first}
         }.to change(Video, :count).by(1)
       end
 
       it "assigns a newly created video as @video" do
-        post :create, {video: attributes_for(:video),channel_id: @user.channel, course_id: @user.channel.courses.first }
+        post :create, {video: attributes_for(:video, user: @user),channel_id: @user.channel, course_id: @user.channel.courses.first }
         expect(assigns(:video)).to be_a(Video)
         expect(assigns(:video)).to be_persisted
       end
 
       it "redirects to the created video" do
-        post :create, {video: attributes_for(:video), channel_id: @user.channel, course_id: @user.channel.courses.first}
+        post :create, {video: attributes_for(:video, user: @user), channel_id: @user.channel, course_id: @user.channel.courses.first}
         expect(response).to redirect_to(Video.last)
       end
     end

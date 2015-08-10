@@ -40,5 +40,6 @@ FactoryGirl.define do
     name "Awesome Video"
     description "Too many cooks"
     file "/foo"
+    user { create(:user) }
   end
 end

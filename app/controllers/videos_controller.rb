@@ -30,7 +30,7 @@ class VideosController < ApplicationController
     @channel = Channel.find(params[:channel_id])
     @course = @channel.courses.find(params[:course_id])
     @video = @course.videos.build(video_params)
-
+    @video.user = current_user
     respond_to do |format|
       if @video.save
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
