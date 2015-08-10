@@ -1,11 +1,12 @@
 class User
   include Mongoid::Document
-  has_one :channel
+  has_one :channel, dependent: :destroy
   before_create :adminize
   after_create :init_channel
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
-  has_many :videos
+  has_many :videos, dependent: :destroy
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -61,5 +62,6 @@ class User
         channel.save!
       end
     end
+
 
 end

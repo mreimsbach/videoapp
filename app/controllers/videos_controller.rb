@@ -69,7 +69,12 @@ class VideosController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_video
-      @video = Video.find(params[:id])
+      begin
+        @video = Video.find(params[:id])
+      rescue Mongoid::Errors::DocumentNotFound
+        redirect_to root_path
+        flash[:error] = "No such video exists. Maybe it was deleted"
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -80,6 +85,7 @@ class VideosController < ApplicationController
     def new_filter
       if !(valid_new && correct_user)
         redirect_to root_path
+        flash[:error] = "Access Denied!"
       end
     end
 
