@@ -5,6 +5,7 @@ class Course
 
   embedded_in :channel
   has_many :videos, dependent: :destroy
+  references_and referenced_in_many :categories
   field :name, type: String
   field :description, type: String, default: ""
 end
