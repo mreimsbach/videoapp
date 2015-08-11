@@ -30,6 +30,7 @@ FactoryGirl.define do
     password_confirmation  "12345678"
     email { generate :email }
     #confirmed_at { 10.seconds.ago }
+    confirmed_at Date.today
   end
 
   sequence :email do |n|
@@ -41,6 +42,12 @@ FactoryGirl.define do
     description "Too many cooks"
     file  Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/test.mp4')))
     user { create(:user) }
+  end
+
+  factory :comment do
+    text "MyString"
+
+    association :video, factory: :video
   end
 
 end

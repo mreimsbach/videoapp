@@ -13,7 +13,7 @@ class VideosController < ApplicationController
   # GET /videos/1
   # GET /videos/1.json
   def show
-    @comment = @video.comments.new
+    @comment = @video.comments.build
   end
 
   # GET /videos/new
@@ -60,10 +60,9 @@ class VideosController < ApplicationController
   # DELETE /videos/1
   # DELETE /videos/1.json
   def destroy
-    channel = @video.user.channel
     @video.destroy
     respond_to do |format|
-      format.html { redirect_to channel_path(channel), notice: 'Video was successfully destroyed.' }
+      format.html { redirect_to videos_url, notice: 'Video was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

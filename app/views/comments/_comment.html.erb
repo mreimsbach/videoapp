@@ -1,6 +1,11 @@
 <div class="panel panel-default">
   <div class="panel-heading">
-    <h3 class="panel-title">Panel title</h3>
+    <h3 class="panel-title"><%= comment.author.username %></h3>
+    <% if comment.author == current_user %>
+      <%= link_to [comment.video, comment], method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger pull-right" do %>
+        <i class="glyphicon glyphicon-trash"></i>
+      <% end %>
+    <% end %>
   </div>
   <div class="panel-body">
       <dd><%= comment.text %></dd>
