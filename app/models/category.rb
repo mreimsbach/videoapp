@@ -3,5 +3,5 @@ class Category
   field :name, type: String
   field :description, type: String
 
-  references_and referenced_in_many :courses
+  has_and_belongs_to_many :courses
 end
