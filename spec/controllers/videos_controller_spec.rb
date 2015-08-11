@@ -178,10 +178,10 @@ RSpec.describe VideosController, type: :controller do
       }.to change(Video, :count).by(-1)
     end
 
-    it "redirects to the videos list" do
+    it "redirects to user channel" do
       video = create(:video)
       delete :destroy, {:id => video.to_param, channel_id: @user.channel, course_id: @user.channel.courses.first}
-      expect(response).to redirect_to(videos_url)
+      expect(response).to redirect_to channel_path(video.user.channel)
     end
   end
 end
