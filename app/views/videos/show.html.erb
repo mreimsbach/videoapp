@@ -14,6 +14,10 @@
 	    }
     });
 </script>
+<%= render :partial => 'comments/form' %>
+<% @video.comments.each do |comment| %>
+  <%= render comment %>
+<% end %>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               videos_path, :class => 'btn btn-default'  %>
 <% if current_user && current_user == @video.user %>
