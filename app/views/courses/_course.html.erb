@@ -2,12 +2,16 @@
   <div class="panel-heading">
     <%= link_to course.name, channel_course_path(course.channel, course) %>
     <% if current_user && current_user.channel == @channel %>
+
       <%= link_to [course.channel, course], method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger pull-right" do %>
         <i class="glyphicon glyphicon-trash"></i>
         <% end %>
       <%= link_to edit_channel_course_path(course.channel, course), :class => "btn btn pull-right" do %>
         <i class="glyphicon glyphicon-edit"></i>
       <% end %>
+        <%= link_to new_video_path(channel_id: course.channel, course_id: course), class: "btn btn pull-right" do%>
+          <i class="glyphicon glyphicon-plus"></i>
+        <% end %>
     <% end %>
 
 
