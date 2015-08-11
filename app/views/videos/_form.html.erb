@@ -42,6 +42,6 @@
   <%= hidden_field_tag(:channel_id, @channel.id) if @channel %>
   <%= f.button nil, :class => 'btn btn-primary' %>
   <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            videos_path, :class => 'btn btn-default' %>
+            :back, :class => 'btn btn-default' %>
 
 <% end %>
