@@ -5,13 +5,8 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:username) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_at) %></th>
-      <th><%= model_class.human_attribute_name(:current_sign_in_ip) %></th>
-      <th><%= model_class.human_attribute_name(:last_sign_in_ip) %></th>
+      <th><%= model_class.human_attribute_name(:email) %></th>
       <th><%= model_class.human_attribute_name(:admin) %></th>
 
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -20,13 +15,8 @@
   <tbody>
     <% @users.each do |user| %>
       <tr>
-        <td><%= link_to user.id, users_admin_path(user) %></td>
+        <td><%= link_to user.username, users_admin_path(user) %></td>
         <td><%= user.email %></td>
-        <td><%= user.username %></td>
-        <td><%= user.current_sign_in_at %></td>
-        <td><%= user.last_sign_in_at %></td>
-        <td><%= user.current_sign_in_ip %></td>
-        <td><%= user.last_sign_in_ip %></td>
         <td><%= user.admin %></td>
 
         <td>
