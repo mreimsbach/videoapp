@@ -9,7 +9,7 @@
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= @channel.description %></dd>
 </dl>
-
+<h2>My Courses</h2>
 <% if @channel.courses.any? %>
   <%= render @courses %>
 <% end %>
@@ -19,5 +19,5 @@
 <% if channel_of_current_user?(@channel) %>
     <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_channel_path(@channel), :class => 'btn btn-default' %>
-    <%= link_to 'Add Course', new_channel_course_path(@channel), :class => 'btn btn-default' %>
+    <%= link_to 'Add Course', new_channel_course_path(@channel), :class => 'btn btn-primary' %>
 <% end %>
