@@ -4,6 +4,7 @@ class Comment
   embedded_in :video
   field :user_id, type: BSON::ObjectId
   validates :text, presence: true,  length: { maximum: 1000 }
+  validates :user_id, presence: true
 
   def author
     return nil if (self.user_id.nil?)

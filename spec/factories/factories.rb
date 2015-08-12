@@ -17,8 +17,8 @@ FactoryGirl.define do
   end
 
   factory :course do
-    name "AwesomeChannel"
-    description "AwesomeChannelDescription"
+    name "AwesomeCourse"
+    description "AwesomeCourseDescription"
 
     association :channel, factory: :channel
 
@@ -56,7 +56,7 @@ FactoryGirl.define do
 
   factory :comment do
     text FFaker::BaconIpsum.sentence
-
+    user_id { create(:user)._id }
     association :video, factory: :video
   end
 
