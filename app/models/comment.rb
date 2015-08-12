@@ -6,6 +6,7 @@ class Comment
   validates :text, presence: true,  length: { maximum: 1000 }
 
   def author
+    return nil if (self.user_id.nil?)
     begin
       User.find(self.user_id)
     rescue Mongoid::Errors::DocumentNotFound
