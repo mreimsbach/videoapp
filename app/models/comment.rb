@@ -3,6 +3,7 @@ class Comment
   field :text, type: String
   embedded_in :video
   field :user_id, type: BSON::ObjectId
+  validates :text, presence: true,  length: { maximum: 1000 }
 
   def author
     begin
