@@ -38,6 +38,7 @@ RSpec.describe CommentsController, type: :controller do
 
   describe "GET #new" do
     it "assigns a new comment as @comment" do
+      sign_in create(:user)
       video = create(:video)
       get :new, {:video_id => video}, valid_session
       expect(assigns(:comment)).to be_a_new(Comment)
@@ -80,9 +81,9 @@ RSpec.describe CommentsController, type: :controller do
         expect(assigns(:comment)).to be_a_new(Comment)
       end
 
-      it "re-renders the 'video show' template" do
+      it "redirect to the 'video show' template" do
         post :create, {:video_id => @video.id, :comment => invalid_attributes}, valid_session
-        expect(response).to render_template("videos/show")
+        expect(response).to redirect_to(video_path(@video))
       end
     end
     context "As logged out User" do
@@ -97,7 +98,7 @@ RSpec.describe CommentsController, type: :controller do
 
       it "redirects to log-in" do
         post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
-        expect(response).to redirect_to(sign_in_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
@@ -132,7 +133,6 @@ RSpec.describe CommentsController, type: :controller do
         video = create(:video)
         video.comments << comment
         video.save
-        comment.user_id = @user.id
         delete :destroy, {:id => comment, video_id: video}, valid_session
         video.reload
         expect(video.comments.count).to eq(1)
@@ -142,7 +142,7 @@ RSpec.describe CommentsController, type: :controller do
         comment = create(:comment)
         video = comment.video
         delete :destroy, {:id => comment.to_param, video_id: comment.video}, valid_session
-        expect(response).to redirect_to(sign_in_path)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end

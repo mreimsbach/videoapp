@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :destroy]
+  before_action :authenticate_user!, except: [:show]
 
   # GET /comments
   # GET /comments.json
