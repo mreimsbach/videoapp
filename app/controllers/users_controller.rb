@@ -20,7 +20,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    user = User.find(params[:id])
+    destroy_comments(user)
+    user.destroy
     redirect_to :action => 'index'
   end
 
@@ -32,4 +34,11 @@ class UsersController < ApplicationController
   def admin_user
     redirect_to(root_url) unless current_user.admin?
   end
+
+  def destroy_comments(user)
+    Video.all.each do |v|
+      v.comments.where(user_id: user._id).destroy
+    end
+  end
+
 end

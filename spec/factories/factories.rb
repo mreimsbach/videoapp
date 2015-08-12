@@ -1,3 +1,4 @@
+require 'ffaker'
 FactoryGirl.define do
   factory :channel do
     name "MyChannelName"
@@ -28,24 +29,33 @@ FactoryGirl.define do
     admin false
     password  "12345678"
     password_confirmation  "12345678"
-    email { generate :email }
+    email  { "#{rand(100000)}_#{FFaker::Internet.email}" }
     #confirmed_at { 10.seconds.ago }
     confirmed_at Date.today
   end
 
-  sequence :email do |n|
-    "person.#{n}@avarteq.de"
-  end
 
   factory :video do
     name "Awesome Video"
     description "Too many cooks"
     file  Rack::Test::UploadedFile.new(File.open(File.join(Rails.root, '/spec/fixtures/test.mp4')))
     user { create(:user) }
+
+    factory :video_with_comments do
+      transient do
+        comments 100
+      end
+      after(:build) do |video, evaluator|
+        users = User.all
+        evaluator.comments.times do
+          video.comments.build(attributes_for(:comment, user_id: users.sample._id))
+        end
+      end
+    end
   end
 
   factory :comment do
-    text "MyString"
+    text FFaker::BaconIpsum.sentence
 
     association :video, factory: :video
   end

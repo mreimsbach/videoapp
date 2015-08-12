@@ -6,9 +6,18 @@ class Comment
 
   def author
     begin
-      user = User.find(self.user_id)
-    rescue Mongoid::Errors::InvalidFind
+      User.find(self.user_id)
+    rescue Mongoid::Errors::DocumentNotFound
+      nil
+    end
+  end
+
+  def author_name
+    writer = self.author
+    if (writer.nil?)
       "Deleted user"
+    else
+      writer.username
     end
   end
 end
