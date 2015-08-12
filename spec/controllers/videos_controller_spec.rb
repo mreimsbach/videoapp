@@ -36,13 +36,6 @@ RSpec.describe VideosController, type: :controller do
   # VideosController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #index" do
-    it "assigns all videos as @videos" do
-      video = create(:video)
-      get :index, {}, valid_session
-      expect(assigns(:videos)).to eq([video])
-    end
-  end
 
   describe "GET #show" do
     it "assigns the requested video as @video" do
