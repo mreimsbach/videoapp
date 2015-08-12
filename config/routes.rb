@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :videos do
+  resources :videos, except: [:index] do
     resources :comments, only: [:new, :create, :destroy]
   end
 
