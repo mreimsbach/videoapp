@@ -5,6 +5,7 @@ class Video
   belongs_to :user
   belongs_to :course
   embeds_many :comments
+  has_and_belongs_to_many :categories
   validates :name, presence: true, length: { maximum: 50 }
   validates :description, presence: true, length: { maximum: 1000 }
   validates :file, presence: true
