@@ -58,7 +58,7 @@ class User
       if channel == nil
         channel = Channel.new
         channel.user = self
-        channel.name = self.username
+        channel.name = "#{self.username}'s Awesome Channel"
         channel.save!
       end
     end
