@@ -36,68 +36,114 @@ RSpec.describe CommentsController, type: :controller do
   # CommentsController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "GET #show" do
-    it "assigns the requested comment as @comment" do
-      comment = Comment.create! valid_attributes
-      get :show, {:id => comment.to_param}, valid_session
-      expect(assigns(:comment)).to eq(comment)
-    end
-  end
-
   describe "GET #new" do
     it "assigns a new comment as @comment" do
-      get :new, {}, valid_session
+      video = create(:video)
+      get :new, {:video_id => video}, valid_session
       expect(assigns(:comment)).to be_a_new(Comment)
     end
   end
 
   describe "POST #create" do
     context "with valid params" do
+      before (:example) do
+        @user = create(:user, channel: create(:channel_with_courses))
+        sign_in @user
+        @video = create(:video)
+      end
       it "creates a new Comment" do
-        expect {
-          post :create, {:comment => valid_attributes}, valid_session
-        }.to change(Comment, :count).by(1)
+        post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
+        @video.reload
+        expect(@video.comments.count).to eq(1)
       end
 
       it "assigns a newly created comment as @comment" do
-        post :create, {:comment => valid_attributes}, valid_session
+        post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
         expect(assigns(:comment)).to be_a(Comment)
         expect(assigns(:comment)).to be_persisted
       end
 
       it "redirects to the created comment" do
-        post :create, {:comment => valid_attributes}, valid_session
-        expect(response).to redirect_to(Comment.last)
+        post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
+        expect(response).to redirect_to(video_path(@video))
       end
     end
 
     context "with invalid params" do
+      before (:example) do
+        @user = create(:user, channel: create(:channel_with_courses))
+        sign_in @user
+        @video = create(:video)
+      end
       it "assigns a newly created but unsaved comment as @comment" do
-        post :create, {:comment => invalid_attributes}, valid_session
+        post :create, {:video_id => @video.id, :comment => invalid_attributes}, valid_session
         expect(assigns(:comment)).to be_a_new(Comment)
       end
 
-      it "re-renders the 'new' template" do
-        post :create, {:comment => invalid_attributes}, valid_session
-        expect(response).to render_template("new")
+      it "re-renders the 'video show' template" do
+        post :create, {:video_id => @video.id, :comment => invalid_attributes}, valid_session
+        expect(response).to render_template("videos/show")
+      end
+    end
+    context "As logged out User" do
+      before(:example) do
+        @video = create(:video)
+      end
+      it "creates a new Comment" do
+        post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
+        @video.reload
+        expect(@video.comments.count).to eq(0)
+      end
+
+      it "redirects to log-in" do
+        post :create, {:video_id => @video.id, :comment => valid_attributes}, valid_session
+        expect(response).to redirect_to(sign_in_path)
       end
     end
   end
 
   describe "DELETE #destroy" do
-    it "destroys the requested comment" do
-      comment = create(:comment)
-      video = comment.video
-      expect {
-        delete :destroy, {:id => comment.to_param, video_id: comment.video}, valid_session
-      }.to change(video.comments, :count).by(-1)
-    end
+    context "As logged in User" do
+      before (:example) do
+        @user = create(:user, channel: create(:channel_with_courses))
+        sign_in @user
+      end
+      it "destroys the requested comment" do
+        comment = create(:comment)
+        video = create(:video)
+        video.comments << comment
+        video.save
+        comment.user_id = @user.id
+        delete :destroy, {:id => comment, video_id: video}, valid_session
+        video.reload
+        expect(video.comments.count).to eq(0)
+      end
 
-    it "reloads the video" do
-      comment = create(:comment)
-      video = comment.video
-      delete :destroy, {:id => comment.to_param, video_id: comment.video}, valid_session
-      expect(response).to redirect_to(video_path(video))
+      it "reloads the video" do
+        comment = create(:comment)
+        video = comment.video
+        delete :destroy, {:id => comment.to_param, video_id: comment.video}, valid_session
+        expect(response).to redirect_to(video_path(video))
+      end
+    end
+    context "As logged out User" do
+      it "destroys the requested comment" do
+        comment = create(:comment)
+        video = create(:video)
+        video.comments << comment
+        video.save
+        comment.user_id = @user.id
+        delete :destroy, {:id => comment, video_id: video}, valid_session
+        video.reload
+        expect(video.comments.count).to eq(1)
+      end
+
+      it "redirects to sign_in" do
+        comment = create(:comment)
+        video = comment.video
+        delete :destroy, {:id => comment.to_param, video_id: comment.video}, valid_session
+        expect(response).to redirect_to(sign_in_path)
+      end
     end
   end
 
