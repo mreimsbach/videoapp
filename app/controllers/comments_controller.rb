@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:show, :destroy]
+  before_action :authenticate_user!, except: [:show]
 
   # GET /comments
   # GET /comments.json
@@ -27,7 +28,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @video, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @video }
       else
-        format.html { render :new }
+        format.html { redirect_to @video }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
