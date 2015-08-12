@@ -60,4 +60,8 @@ FactoryGirl.define do
     association :video, factory: :video
   end
 
+  factory :category do
+    tag { "#{rand(10000000)}" }
+  end
+
 end

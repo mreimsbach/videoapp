@@ -4,3 +4,8 @@ if Rails.env.test? or Rails.env.cucumber?
     config.enable_processing = false
   end
 end
+if Rails.env.development?
+  CarrierWave.configure do |config|
+    storage :file
+  end
+end
