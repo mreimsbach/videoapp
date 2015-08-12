@@ -27,7 +27,7 @@ class CommentsController < ApplicationController
         format.html { redirect_to @video, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @video }
       else
-        format.html { render :new }
+        format.html { redirect_to @video, alert: "Comment can't be empty or longer than 1000 characters" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
     end
