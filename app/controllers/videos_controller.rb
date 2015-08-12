@@ -14,6 +14,7 @@ class VideosController < ApplicationController
   # GET /videos/new
   def new
     @video = @course.videos.build
+    @category = Category.new
   end
 
   # GET /videos/1/edit

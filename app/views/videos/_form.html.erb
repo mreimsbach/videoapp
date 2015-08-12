@@ -38,6 +38,7 @@
       </div>
     </div>
   <% end %>
+  <%= render :partial => 'categories/form' %>
 
 
   <%= hidden_field_tag(:course_id, @course.id) if @course %>

@@ -1,0 +1,5 @@
+<%= drop_down "Choose Category" do %>
+  <% Category.all.each do |category| %>
+    <%= menu_item category.tag %>
+  <% end %>
+<% end %>
