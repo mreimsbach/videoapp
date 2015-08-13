@@ -71,7 +71,7 @@ RSpec.describe CategoriesController, type: :controller do
 
       it "redirects to the created category" do
         post :create, {:category => valid_attributes}, valid_session
-        expect(response).to redirect_to(Category.last)
+        expect(response).to redirect_to(categories_path)
       end
     end
 
@@ -88,7 +88,7 @@ RSpec.describe CategoriesController, type: :controller do
     end
   end
 
-  
+
 
   describe "DELETE #destroy" do
     it "destroys the requested category" do
