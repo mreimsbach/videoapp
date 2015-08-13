@@ -11,7 +11,10 @@
   <% if current_user %>
     <%= menu_group pull: :right do %>
       <% if current_user.admin? %>
-        <%= menu_item "User Admin", users_admin_index_path %>
+        <%= drop_down "Admin" do %>
+          <%= menu_item "User", users_admin_index_path %>
+          <%= menu_item "Categories", categories_path %>
+        <% end %>
       <%end%>
       <%= drop_down current_user.username do %>
         <%= menu_item "Edit your information", edit_user_registration_path %>
