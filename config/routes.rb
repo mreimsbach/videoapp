@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :categories
+  resources :categories, only: [:index, :new, :create, :destroy ]
   resources :videos, except: [:index] do
     resources :comments, only: [:new, :create, :destroy]
   end
