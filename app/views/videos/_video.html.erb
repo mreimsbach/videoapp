@@ -7,11 +7,15 @@
   <dt><strong>Categories:</strong></dt>
   <dd>
   <% if video.categories.any? %>
-    <% video.categories.each do |category| %>
       <ul class="list-unstyled">
-        <%= render category %>
+        <% video.categories.each do |category| %>
+          <li>
+            <%= link_to category_path(category) do%>
+              <span class="label label-default"><%= category.tag %></span>
+            <% end %>
+          </li>
+        <% end %>
       </ul>
-    <% end %>
   <% end %>
 </dd>
 </dl>
