@@ -13,7 +13,7 @@
 <% if @channel.courses.any? %>
   <%= render @courses %>
 <% end %>
-
+<%= will_paginate @courses %> <br\>
 <%= link_to t('.back', :default => t("helpers.links.back")),
               channels_path, :class => 'btn btn-default'  %>
 <% if channel_of_current_user?(@channel) %>

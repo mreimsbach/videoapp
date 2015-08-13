@@ -13,7 +13,7 @@ class ChannelsController < ApplicationController
   # GET /channels/1
   # GET /channels/1.json
   def show
-    @courses = @channel.courses
+    @courses = @channel.courses.paginate(:page => params[:page], :per_page => 10)
 
   end
 
