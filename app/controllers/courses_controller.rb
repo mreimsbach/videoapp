@@ -16,6 +16,7 @@ class CoursesController < ApplicationController
         @courses << course
       end
     end
+    @courses = @courses.paginate(:page => params[:page], :per_page => 10)
     render :index
   end
 
@@ -82,7 +83,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :description)
+      params.require(:course).permit(:name, :description, :page)
     end
     def load_channel
       @channel = Channel.find(params[:channel_id])
