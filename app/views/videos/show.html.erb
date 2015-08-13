@@ -22,7 +22,7 @@
   <% end %>
 <% end %>
 <%= link_to t('.back', :default => t("helpers.links.back")),
-              videos_path, :class => 'btn btn-default'  %>
+              :back, :class => 'btn btn-default'  %>
 <% if current_user && current_user == @video.user %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_video_path(@video), :class => 'btn btn-default' %>
