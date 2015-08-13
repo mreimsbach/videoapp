@@ -16,11 +16,13 @@
 <% if current_user %>
   <%= render :partial => 'comments/form' %>
 <% end %>
+
 <% if @video.comments.any? %>
   <% @video.comments.all.reverse.each do |comment| %>
     <%= render comment unless comment.new_record %>
   <% end %>
 <% end %>
+
 <%= link_to t('.back', :default => t("helpers.links.back")),
               :back, :class => 'btn btn-default'  %>
 <% if current_user && current_user == @video.user %>

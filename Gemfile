@@ -49,6 +49,8 @@ gem 'carrierwave-video-thumbnailer'
 
 gem 'devise-bootstrap-views'
 gem 'bootstrap-glyphicons'
+
+gem "will_paginate_mongoid"
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

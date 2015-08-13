@@ -7,7 +7,7 @@ class ChannelsController < ApplicationController
   # GET /channels
   # GET /channels.json
   def index
-    @channels = Channel.all
+    @channels = Channel.paginate(:page => params[:page], :per_page => 10)
   end
 
   # GET /channels/1
@@ -75,7 +75,7 @@ class ChannelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def channel_params
-      params.require(:channel).permit(:name, :description)
+      params.require(:channel).permit(:name, :description, :page)
     end
     def channel_owner?
       redirect_to(root_url) unless current_user.channel == @channel
