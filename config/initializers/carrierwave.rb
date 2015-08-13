@@ -6,6 +6,6 @@ if Rails.env.test? or Rails.env.cucumber?
 end
 if Rails.env.development?
   CarrierWave.configure do |config|
-    storage :file
+    config.storage :file
   end
 end
