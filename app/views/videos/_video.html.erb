@@ -4,4 +4,14 @@
   <dd><%= link_to video.name, video_path(video) %></dd>
   <dt><strong><%= model_class.human_attribute_name(:description) %>:</strong></dt>
   <dd><%= video.description %></dd>
+  <dt><strong>Categories:</strong></dt>
+  <dd>
+  <% if video.categories.any? %>
+    <% video.categories.each do |category| %>
+      <ul class="list-unstyled">
+        <%= render category %>
+      </ul>
+    <% end %>
+  <% end %>
+</dd>
 </dl>
