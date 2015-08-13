@@ -29,3 +29,9 @@ videoplayer{
 #mep_0{
   margin: 15px;
 }
+
+.navbar-default {
+  background-color:black;
+  background-image: none;
+  background-repeat: no-repeat;
+ }
