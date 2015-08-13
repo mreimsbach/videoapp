@@ -26,10 +26,8 @@
 <% if current_user && current_user == @video.user %>
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
                 edit_video_path(@video), :class => 'btn btn-default' %>
-  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                video_path(@video),
-                :method => 'delete',
-                :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                :class => 'btn btn-danger' %>
+  <%= link_to video_path(@video), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" do %>
+      <i class="glyphicon glyphicon-trash"></i>
+  <% end %>
 <% end %>
 </div>
