@@ -83,7 +83,7 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :description, :page)
+      params.require(:course).permit(:name, :description)
     end
     def load_channel
       @channel = Channel.find(params[:channel_id])

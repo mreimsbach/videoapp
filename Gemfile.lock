@@ -47,6 +47,8 @@ GEM
     bootstrap-glyphicons (0.0.1)
       railties (>= 3.0)
       sass (>= 3.2)
+    bootstrap-will_paginate (0.0.10)
+      will_paginate
     bson (3.1.2)
     builder (3.2.2)
     byebug (5.0.0)
@@ -409,6 +411,7 @@ PLATFORMS
 DEPENDENCIES
   a9s_swift
   bootstrap-glyphicons
+  bootstrap-will_paginate (= 0.0.10)
   byebug
   capybara
   carrierwave

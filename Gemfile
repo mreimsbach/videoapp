@@ -49,6 +49,7 @@ gem 'carrierwave-video-thumbnailer'
 
 gem 'devise-bootstrap-views'
 gem 'bootstrap-glyphicons'
+gem 'bootstrap-will_paginate', '0.0.10'
 
 gem "will_paginate_mongoid"
 group :development, :test do
