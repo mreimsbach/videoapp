@@ -67,6 +67,18 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def follow
+    @channel.subscriptions << current_user
+  end
+
+  def unfollow
+    @channel.subscriptions.delete(current_user.id)
+  end
+
+  def following?
+    @channel.subscriptions.include?(current_user)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_channel
