@@ -6,7 +6,7 @@ class User
   validates :username, presence: true, length: { maximum: 50 }
   validates :email, uniqueness: true
   has_many :videos, dependent: :destroy
-  has_and_belongs_to_many :channel, as: subscriptions
+  has_and_belongs_to_many :subscriptions, class_name: "Channel", inverse_of: :subscriber
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

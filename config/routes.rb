@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
    root 'static_pages#home'
    resources :users_admin, :controller => 'users', only: [:edit, :index, :show, :destroy, :update]
+   get "/follow/:id" => "channels#follow", :as => :follow
+   get "/unfollow/:id" => "channels#unfollow", :as => :unfollow
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

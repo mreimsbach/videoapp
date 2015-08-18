@@ -1,5 +1,5 @@
 class ChannelsController < ApplicationController
-  before_action :set_channel, only: [:show, :edit, :update, :destroy]
+  before_action :set_channel, only: [:show, :edit, :update, :destroy, :follow, :unfollow, :following]
   before_action :authenticate_user!, except: [:show, :index]
   before_action :channel_owner?, only: [:update, :edit]
 
@@ -68,15 +68,15 @@ class ChannelsController < ApplicationController
   end
 
   def follow
-    @channel.subscriptions << current_user
+    flash[:info] = "You are now following channel: " + @channel.name
+    @channel.subscriber << current_user
+    redirect_to channel_path(@channel)
   end
 
   def unfollow
-    @channel.subscriptions.delete(current_user.id)
-  end
-
-  def following?
-    @channel.subscriptions.include?(current_user)
+    flash[:info] = "You are not following channel: " + @channel.name
+    @channel.subscriber.delete(current_user)
+    redirect_to channel_path(@channel)
   end
 
   private

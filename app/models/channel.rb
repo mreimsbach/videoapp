@@ -7,7 +7,11 @@ class Channel
 
   field :name, type: String
   field :description, type: String, default: ""
-  has_and_belongs_to_many :user, as: subscriber
+  has_and_belongs_to_many :subscriber, class_name: "User", inverse_of: :subscriptions
 
   belongs_to :user
+
+  def following?(user)
+    subscriber.include?(user)
+  end
 end
