@@ -42,6 +42,9 @@ class CoursesController < ApplicationController
 
     respond_to do |format|
       if @course.save
+        @channel.subscriber.each do |user|
+            SubscriptionMailer.new_course(user, @channel, @course).deliver_now
+        end
         format.html { redirect_to [@channel, @course], notice: 'Course was successfully created.' }
         format.json { render :show, status: :created, location: @course }
       else
