@@ -49,7 +49,7 @@ RSpec.describe CategoriesController, type: :controller do
   describe "GET #new" do
 
     it "assigns a new category as @category" do
-      sign_in create(:admin_user)
+      sign_in create(:user, admin: true)
       get :new, {}, valid_session
       expect(assigns(:category)).to be_a_new(Category)
     end
@@ -60,7 +60,7 @@ RSpec.describe CategoriesController, type: :controller do
   describe "POST #create" do
     context "with valid params" do
       before (:example) do
-        sign_in create(:admin_user)
+        sign_in create(:user, admin: true)
       end
       it "creates a new Category" do
         expect {
@@ -97,7 +97,7 @@ RSpec.describe CategoriesController, type: :controller do
 
   describe "DELETE #destroy" do
     before (:example) do
-      sign_in create(:admin_user)
+      sign_in create(:user, admin: true)
     end
     it "destroys the requested category" do
       category = Category.create! valid_attributes
