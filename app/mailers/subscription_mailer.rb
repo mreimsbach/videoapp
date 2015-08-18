@@ -5,4 +5,10 @@ class SubscriptionMailer < ApplicationMailer
     @video = video
     mail(to: @user.email, subject: 'One of your subscribed channels has been updated')
   end
+  def new_course(user, channel, course)
+    @user = user
+    @channel = channel
+    @course = course
+    mail(to: @user.email, subject: 'One of your subscribed channels has been updated')
+  end
 end
