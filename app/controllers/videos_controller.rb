@@ -31,6 +31,9 @@ class VideosController < ApplicationController
     @video.user = current_user
     respond_to do |format|
       if @video.save
+        @channel.subscriber.each do |user|
+            SubscriptionMailer.new_video(user, @channel, @video).deliver_now
+        end
         format.html { redirect_to @video, notice: 'Video was successfully created.' }
         format.json { render :show, status: :created, location: @video }
       else
