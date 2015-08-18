@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi <%= @user.username %>,</h1>
+    <p>
+      <%= @channel.name %> has created a new course.<br>
+      You can watch it here:<br>
+      <%= channel_course_url(@channel, @course) %>
+    </p>
+    <p>Have a great day!</p>
+  </body>
+</html>
