@@ -1,0 +1,14 @@
+<%= form_tag("/search", method: "get", :class => "form-horizontal") do %>
+  <%= label_tag(:search, "Search for:") %>
+  <%= text_field_tag :search, '', class: "form-control" %>
+  <br>
+
+  <%= submit_tag "Search", :class => "btn btn-submit"%>
+<% end %>
+<%= hidden_field_tag "category[category_ids][]", nil %>
+<%= select :category_ids, Category.all.map { |c| [c.tag, c.id]}, {}, multiple: true, :class => "form-control" %>
+<ul class="list-group">
+<% @videos.each do |video| %>
+  <%= link_to video.name, video_path(video), :class => "list-group-item" %>
+<% end %>
+</ul>

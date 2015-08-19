@@ -1,6 +1,6 @@
 class VideosController < ApplicationController
   before_action :set_video, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: [:show]
+  before_action :authenticate_user!, except: [:show, :search]
   before_action :new_filter, only: [:new]
 
 
@@ -77,6 +77,9 @@ class VideosController < ApplicationController
     @video = Video.find(params[:video_id])
     vote(:down)
     redirect_to @video
+
+  def search
+      @videos = Video.where(name: params[:search])
   end
 
   private
