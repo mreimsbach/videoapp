@@ -67,7 +67,28 @@ class VideosController < ApplicationController
     end
   end
 
+  def upvote
+    @video = Video.find(params[:video_id])
+    vote(:up)
+    redirect_to @video
+  end
+
+  def downvote
+    @video = Video.find(params[:video_id])
+    vote(:down)
+    redirect_to @video
+  end
+
   private
+
+    def vote(value)
+      if (current_user.vote_value(@video) == value)
+        current_user.unvote(@video)
+      else
+        current_user.vote(@video, value)
+      end
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_video
       begin

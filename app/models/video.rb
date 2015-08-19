@@ -1,6 +1,9 @@
 class Video
   include Mongoid::Document
+  include Mongo::Voteable
   mount_uploader :file, VideoUploader
+
+  voteable self, :up => +1, :down => -1
 
   belongs_to :user
   belongs_to :course

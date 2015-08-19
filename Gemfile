@@ -41,6 +41,7 @@ gem "twitter-bootstrap-rails"
 
 #database
 gem "mongoid", "~> 4.0.0"
+gem 'rs_voteable_mongo'
 
 #this gem provides a simple and extremely flexible way to upload files from Ruby applications
 gem 'carrierwave'

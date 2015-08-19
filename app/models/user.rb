@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongo::Voter
   has_one :channel, dependent: :destroy
   before_create :adminize
   after_create :init_channel
