@@ -1,1 +1,9 @@
 <h1>home</h1>
+<% if current_user %>
+  <h2>Your Subscriptions</h2>
+  <div class="list-group">
+  <% current_user.subscriptions.each do |channel| %>
+    <%= link_to channel.name, channel_path(channel), :class => "list-group-item" %>
+  <% end %>
+  </div>
+<% end %>
