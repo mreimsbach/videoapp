@@ -14,21 +14,21 @@
         <% end %>
     <% end %>
 
-
+    <script> $(".owl-carousel").owlCarousel(); </script>
   </div>
   <div class="panel-body">
     <%= course.description %>
     <br>
     <hr>
     <div class="DocumentList">
-        <ul class="list-inline">
+        <div class="owl-carousel">
             <% course.videos.each do |video| %>
-              <li class="DocumentItem">
+            <div>
                 <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
                 <center><h5><%= video.name %></h5></center></span>
-              </li>
+            </div>
             <% end %>
-        </ul>
+        </div>
     </div>
   </div>
 </div>

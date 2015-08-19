@@ -15,4 +15,5 @@
 //= require twitter/bootstrap
 //= require turbolinks
 //= require mediaelement_rails
+//= require owl.carousel
 //= require_tree .
