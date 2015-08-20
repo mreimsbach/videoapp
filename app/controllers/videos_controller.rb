@@ -77,12 +77,33 @@ class VideosController < ApplicationController
     @video = Video.find(params[:video_id])
     vote(:down)
     redirect_to @video
+  end
 
   def search
-      @videos = Video.where(name: params[:search])
+    @categories = Category.all
+  #  @videos = Video.where(:categories.in => params[:category_ids])
+    @videos = []
+    if params[:category_ids]
+      filter_categories
+    else
+      @videos += Video.where( :name => /#{params[:search]}/i ) unless params[:search].blank?
+    end
+    if @videos.empty?
+      flash[:info] = "No Videos found!"
+    end
   end
 
   private
+
+    def filter_categories
+      params[:category_ids].each do |category|
+        @videos += (Category.find(category)).videos.all
+      end
+      @videos = @videos.uniq
+      if params[:search]
+        @videos.delete_if{ |v| !(v.name.include?(params[:search]))}
+      end
+    end
 
     def vote(value)
       if (current_user.vote_value(@video) == value)

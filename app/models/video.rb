@@ -16,6 +16,7 @@ class Video
   field :name, type: String
   field :description, type: String
   field :file, type: String
+  index({name: 1})
 
   def delete_comments_from_user(user)
     comments = self.comments.where(user_id: user._id).each do |comment|
