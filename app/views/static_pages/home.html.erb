@@ -6,4 +6,19 @@
     <%= link_to channel.name, channel_path(channel), :class => "list-group-item" %>
   <% end %>
   </div>
+<% else %>
+  <% if !@videos.nil? %>
+    <center>
+    <h3> All the Popular videos </h3>
+    <% @videos.order_by(point: 'desc').each do |video| %>
+    <!-- Should go to a partial since reuse in course -->
+
+      <div>
+          <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
+          <center><h5><%= video.name %></h5></center></span>
+      </div>
+
+    <% end %>
+    </center>
+  <% end %>
 <% end %>
