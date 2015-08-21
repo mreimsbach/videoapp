@@ -1,22 +1,35 @@
-<h1>home</h1>
-<% if current_user %>
-  <h2>Your Subscriptions</h2>
-  <div class="list-group">
-  <% current_user.subscriptions.each do |channel| %>
-    <%= link_to channel.name, channel_path(channel), :class => "list-group-item" %>
-  <% end %>
-  </div>
-<% else %>
-  <% if !@videos.empty? %>
-  <center>
-  <h3> All the Popular videos </h3>
-  <% @videos.order_by(point: 'desc').each do |video| %>
-    <div>
-        <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
-        <center><h5><%= video.name %></h5></center></span>
-    </div>
+<div class="page-header">
+  <h1><%=t '.title', :default => "Welcome to VideoPortal" %></h1>
+</div>
+<% if !@videos.empty? %>
+<center>
+    <h1> Most Popular Videos </h1>
+<table>
 
-  <% end %>
-  </center>
+<% @videos.each_slice(5) do |slice| %>
+  <tr>
+    <% slice.each do |video| %>
+    <td>
+       <%= link_to image_tag(video.file.url(:thumb)), video_path(video) %>
+       <p >
+         <dl class="text-center">
+           <dt><%= video.name %></dt>
+           <dd>by <%= video.user.username %></dd>
+         </dl>
+      </p>
+    <td>
+    <% end %>
+  <tr>
 <% end %>
+
+</table>
+</center>
+<% end %>
+<% if current_user %>
+<h2>Your Subscriptions</h2>
+<div class="list-group">
+  <% current_user.subscriptions.each do |channel| %>
+  <%= link_to channel.name, channel_path(channel), :class => "list-group-item" %>
+  <% end %>
+</div>
 <% end %>
