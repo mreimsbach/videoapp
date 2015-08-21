@@ -2,6 +2,15 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
+<% if current_user && current_user == @video.user %>
+<div class="row">
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                edit_video_path(@video), :class => 'btn btn-default pull-right' %>
+  <%= link_to video_path(@video), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger pull-right" do %>
+      <i class="glyphicon glyphicon-trash"></i>
+  <% end %>
+</div>
+<% end %>
 <center>
 <video id="videoplayer" width="640" height="360" src="<%=@video.file%>" type="video/mov"
 	id="player1" %>"
@@ -26,11 +35,4 @@
 <br>
 <div class="row">
 <%= link_to "Back", @video.user.channel, :class => 'btn btn-default'  %>
-<% if current_user && current_user == @video.user %>
-  <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                edit_video_path(@video), :class => 'btn btn-default' %>
-  <%= link_to video_path(@video), method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger" do %>
-      <i class="glyphicon glyphicon-trash"></i>
-  <% end %>
-<% end %>
 </div>
