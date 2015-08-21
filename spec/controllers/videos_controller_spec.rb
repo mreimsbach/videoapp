@@ -39,7 +39,14 @@ RSpec.describe VideosController, type: :controller do
 
   describe "GET #show" do
     it "assigns the requested video as @video" do
+      user = create(:user)
+      user.channel.courses << create(:course)
       video = create(:video)
+      video.user = user
+      video.course = user.channel.courses.first
+      user.save
+      video.save
+
       get :show, {:id => video.to_param}, valid_session
       expect(assigns(:video)).to eq(video)
     end
