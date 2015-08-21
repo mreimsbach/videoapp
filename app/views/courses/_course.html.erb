@@ -1,6 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-heading">
     <%= link_to course.name, channel_course_path(course.channel, course) %>
+    by
+    <%= link_to course.channel.name, channel_path(course.channel) %>
     <% if current_user && current_user.channel == @channel %>
 
       <%= link_to [course.channel, course], method: :delete, data: { confirm: 'Are you sure?'}, class: "btn btn-danger pull-right" do %>
