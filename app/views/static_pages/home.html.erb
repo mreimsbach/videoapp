@@ -7,16 +7,16 @@
   <% end %>
   </div>
 <% else %>
-  <% if !@videos.nil? %>
-    <center>
-    <h3> All the Popular videos </h3>
-    <% @videos.order_by(point: 'desc').each do |video| %>
-      <div>
-          <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
-          <center><h5><%= video.name %></h5></center></span>
-      </div>
+  <% if !@videos.empty? %>
+  <center>
+  <h3> All the Popular videos </h3>
+  <% @videos.order_by(point: 'desc').each do |video| %>
+    <div>
+        <span><%= link_to image_tag(video.file.url :thumb), video_path(video) %>
+        <center><h5><%= video.name %></h5></center></span>
+    </div>
 
-    <% end %>
-    </center>
   <% end %>
+  </center>
+<% end %>
 <% end %>
