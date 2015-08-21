@@ -5,9 +5,6 @@
 
 <%= render @course %>
 
-
-
-
 <%= link_to t('.back', :default => t("helpers.links.back")),
               :back, :class => 'btn btn-default'  %>
 <% if current_user && current_user == @course.channel.user %>

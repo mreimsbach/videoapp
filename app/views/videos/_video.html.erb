@@ -1,7 +1,7 @@
 <%- model_class = Video -%>
 <div class="panel panel-default">
   <div class="panel-body">
-    <h4><%= link_to video.name, video_path(video) %></h4>
+    <h4><%= link_to video.name, video_path(video) %> of <%= link_to @course.name, channel_course_path(@channel, @course) %></h4>
     <p>
       <%= video.description %>
     </p>

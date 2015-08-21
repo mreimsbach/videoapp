@@ -8,6 +8,8 @@ class VideosController < ApplicationController
   # GET /videos/1
   # GET /videos/1.json
   def show
+    @channel = @video.user.channel
+    @course = @channel.courses.find(@video.course_id)
     @comment = @video.comments.build
     @comments = @video.comments.reverse.paginate(:page => params[:page], :per_page => 10)
   end
