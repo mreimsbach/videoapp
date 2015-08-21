@@ -1,5 +1,6 @@
 <p><b>Current rating: </b><%=@video.votes_point%></p>
 <% if current_user %>
-<%= link_to "Awesome", video_upvote_path(@video), class: "btn #{button_color(:up)}" %>
-<%= link_to "Meh!", video_downvote_path(@video), class: "btn #{button_color(:down)}" %>
+<%= link_to "Like", video_upvote_path(@video), class: "btn #{button_color(:up)}" %>
+
+<%= link_to "Dislike", video_downvote_path(@video), class: "btn #{button_color(:down)}" %>
 <% end %>
