@@ -1,6 +1,5 @@
 <%= nav_bar responsive: true, brand: 'VideoPortal', inverted: true do %>
   <%= menu_group do %>
-    <%= menu_item "Home", root_path %>
     <%= menu_item "Channels", channels_path %>
     <% if current_user %>
       <%= menu_item "My Channel", channel_path(current_user.channel) %>
