@@ -15,7 +15,7 @@ RSpec.describe "channels/edit", type: :view do
 
       assert_select "input#channel_name[name=?]", "channel[name]"
 
-      assert_select "input#channel_description[name=?]", "channel[description]"
+      assert_select "textarea#channel_description[name=?]", "channel[description]"
     end
   end
 end
