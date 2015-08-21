@@ -2,9 +2,8 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
-  <%= render @video %>
-
-  <video id="videoplayer" width="640" height="360" src="<%=@video.file%>" type="video/mov"
+<center>
+<video id="videoplayer" width="640" height="360" src="<%=@video.file%>" type="video/mov"
 	id="player1" %>"
 	controls="controls" preload="none"></video>
   <script>
@@ -14,7 +13,8 @@
 	    }
     });
 </script>
-<%= render partial: "votes" %>
+</center>
+<%= render @video %>
 <% if current_user %>
   <%= render :partial => 'comments/form' %>
 <% end %>
@@ -22,7 +22,8 @@
 <% if @comments.any? %>
     <%= render @comments %>
 <% end %>
-<%= will_paginate @comments %> <br\>
+<%= will_paginate @comments %> <br>
+<br>
 <div class="row">
 <%= link_to "Back", @video.user.channel, :class => 'btn btn-default'  %>
 <% if current_user && current_user == @video.user %>

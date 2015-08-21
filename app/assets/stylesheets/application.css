@@ -32,6 +32,10 @@ videoplayer{
   margin: 15px;
 }
 
+#videoinfo{
+  margin-left: 15px;
+  margin-right: 15px;
+}
 .navbar-default {
   background-color:black;
   background-image: none;
