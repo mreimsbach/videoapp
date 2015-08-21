@@ -83,16 +83,17 @@ class VideosController < ApplicationController
 
   def search
     @categories = Category.all
-  #  @videos = Video.where(:categories.in => params[:category_ids])
+
     @videos = []
     if params[:category_ids]
       filter_categories
-    else
+    elsif params[:search]
       @videos += Video.where( :name => /#{params[:search]}/i ) unless params[:search].blank?
+      if @videos.empty?
+        flash.now[:info] = "No Videos found!"
+      end
     end
-    if @videos.empty?
-      flash[:info] = "No Videos found!"
-    end
+
   end
 
   private
@@ -104,6 +105,9 @@ class VideosController < ApplicationController
       @videos = @videos.uniq
       if params[:search]
         @videos.delete_if{ |v| !(v.name.include?(params[:search]))}
+      end
+      if @videos.empty?
+        flash.now[:info] = "No Videos found!"
       end
     end
 
