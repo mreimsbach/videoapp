@@ -1,6 +1,6 @@
 # videoapp
 
-A simple application for the Ruby on Rails lecture. 
+A simple application for the Ruby on Rails lecture.
 
 # Installation
 
